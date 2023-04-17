@@ -1,13 +1,20 @@
 package com.example.mbonespring;
 
+import com.example.mbonespring.dao.UserRepository;
+import com.example.mbonespring.models.entities.UserEntity;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClientDefault {
     @Autowired
     UserRepository userRepo;
-    private void populateUserDatabase()
+    @PostConstruct
+    public void populateUserDatabase()
     {
-        Iterable<UserEntity> userIt = userDAO.findAll();
+        Iterable<UserEntity> userIt = userRepo.findAll();
 
         if ( ! userIt.iterator().hasNext())
         {
