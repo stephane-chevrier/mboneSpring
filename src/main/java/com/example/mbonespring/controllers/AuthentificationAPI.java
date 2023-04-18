@@ -42,10 +42,10 @@ public class AuthentificationAPI {
         clientDefault.populateUserDatabase();
     }
 
-//    @GetMapping("/test")
-//    public String test(){
-//        return "test reussi";
-//    }
+    @GetMapping("/test")
+    public String test(){
+        return "test reussi";
+    }
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody @Valid AuthentificationRequest request){

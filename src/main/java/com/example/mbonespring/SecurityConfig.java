@@ -37,6 +37,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests()
                 .requestMatchers("/login").permitAll()
+                .requestMatchers("/test").permitAll()
                 .anyRequest().authenticated();
 
         final AuthenticationManagerBuilder authenticationManagerBuilder =
