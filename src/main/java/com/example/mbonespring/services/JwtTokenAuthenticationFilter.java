@@ -1,6 +1,6 @@
 package com.example.mbonespring.services;
 
-import com.example.mbonespring.dao.UserRepository;
+import com.example.mbonespring.models.interfaces.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -25,7 +25,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     UserRepository userRepository;
 
-    private static final String SECRET = "myownsecretsecuritytokensauce";
+    private static final String SECRET = "mypersonnalveryveryverysecretsecuritytokensecuritysauceforourangularproject";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

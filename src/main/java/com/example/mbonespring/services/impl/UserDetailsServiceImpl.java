@@ -1,6 +1,6 @@
 package com.example.mbonespring.services.impl;
 
-import com.example.mbonespring.dao.UserRepository;
+import com.example.mbonespring.models.interfaces.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
