@@ -1,6 +1,6 @@
 package com.example.mbonespring;
 
-import com.example.mbonespring.dao.UserRepository;
+import com.example.mbonespring.models.interfaces.UserRepository;
 import com.example.mbonespring.models.entities.UserEntity;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,13 @@ public class ClientDefault {
 
         if ( ! userIt.iterator().hasNext())
         {
-            String[][] users =  {{"client","jesuisleroi","ROLE_CLIENT"}};
+            String[][] users = {
+                    {"client", "jesuisleroi", "ROLE_CLIENT"},
+                    {"Panzani", "torti", "ROLE_CLIENT"},
+                    {"SNCF", "tgv", "ROLE_CLIENT"},
+                    {"LaPoste", "timbre", "ROLE_CLIENT"}
+            };
+
             for ( String[] userdat: users)
             {
                 String pass = new BCryptPasswordEncoder().encode(userdat[1]);

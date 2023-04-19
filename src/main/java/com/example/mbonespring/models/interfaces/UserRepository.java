@@ -1,4 +1,4 @@
-package com.example.mbonespring.dao;
+package com.example.mbonespring.models.interfaces;
 
 import com.example.mbonespring.models.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
