@@ -1,9 +1,11 @@
 package com.example.mbonespring.controllers;
 
 import com.example.mbonespring.ClientDefault;
+import com.example.mbonespring.models.dto.DomainesNiveaux;
+import com.example.mbonespring.models.dto.ExpertDTO;
 import com.example.mbonespring.models.dto.UserDTO;
-import com.example.mbonespring.models.entities.UserEntity;
-import com.example.mbonespring.models.interfaces.ClientsRepository;
+import com.example.mbonespring.models.entities.*;
+import com.example.mbonespring.models.interfaces.*;
 import com.example.mbonespring.services.AuthentificationRequest;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,7 +26,10 @@ import org.springframework.web.bind.annotation.*;
 //import javax.validation.Valid;
 
 import javax.validation.Valid;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -91,6 +96,58 @@ public class AuthentificationAPI {
         final var userDetails = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
             return ResponseEntity.ok().body(clientsRepository.findByUserId(userDetails.getId().intValue()).getSolde());
+        } catch (BadCredentialsException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    /**
+     * Methode de recuperation du solde d'un client
+     * @return ResponseEntity<Integer>
+     */
+    @Autowired
+    ExpertsRepository expertsRepository;
+    @Autowired
+    DomainesRepository domainesRepository;
+    @Autowired
+    NiveauxRepository niveauxRepository;
+    @Autowired
+    ExpertisesRepository expertisesRepository;
+    @GetMapping("/liste/experts")
+    public ResponseEntity<List<ExpertDTO>> listeExperts() {
+        // initialisation de la liste qui sera retournee
+        List<ExpertDTO> expertDTOList = new ArrayList<>();
+        try {
+            // telechargement des tables experts et expertises
+            List<ExpertsEntity> experts = expertsRepository.findAll();
+            List<ExpertisesEntity> expertises = expertisesRepository.findAll();
+            // boucle sur la table des experts
+            for (ExpertsEntity e : experts) {
+                ExpertDTO expertDTO = new ExpertDTO();
+                expertDTO.setNom(e.getNom());
+                expertDTO.setPrenom(e.getPrenom());
+                expertDTO.setUrlPhoto(e.getUrlPhoto());
+                expertDTO.setCout(e.getCout());
+                // initialisation de la liste des domaines/niveaux de l'expert
+                ArrayList<DomainesNiveaux> listDomainesNiveaux = new ArrayList();
+                // boucle sur la table expertise
+                for (ExpertisesEntity f : expertises) {
+                    // si l'expert est present dans la ligne d'expertise
+                    if (e.getId()==f.getExpertId()) {
+                        DomainesNiveaux domainesNiveaux = new DomainesNiveaux();
+                        domainesNiveaux.setDomaine(domainesRepository.findById(f.getDomaineId()).get().getNom());
+                        domainesNiveaux.setNiveau(niveauxRepository.findById(f.getNiveauId()).get().getNom());
+                        // Ajout de la liste domaine/niveaux
+                        listDomainesNiveaux.add(domainesNiveaux);
+                    }
+                }
+                // Maj de l'expert avec la liste des domaines/niveaux
+                expertDTO.setDomaines(listDomainesNiveaux);
+                // rajout de l'expert à la liste
+                expertDTOList.add(expertDTO);
+            }
+            // retour de la liste construite
+            return ResponseEntity.ok().body(expertDTOList);
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS mbone.clients;
 CREATE TABLE mbone.clients (
                                id         int PRIMARY KEY NOT NULL AUTO_INCREMENT,
                                user_id    bigint,
-                               FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                               FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
                                nom        varchar(50),
                                solde      int
 );
@@ -46,7 +46,7 @@ CREATE TABLE mbone.experts (
                                id         int PRIMARY KEY NOT NULL AUTO_INCREMENT,
                                nom        varchar(50),
                                prenom     varchar(50),
-                               urlPhoto   varchar(255),
+                               url_photo  varchar(255),
                                cout       int
 );
 
@@ -103,11 +103,11 @@ UNLOCK TABLES;
 
 # Remplissage Table experts
 LOCK TABLES mbone.experts WRITE;
-INSERT INTO mbone.experts (nom, prenom, urlPhoto, cout)
+INSERT INTO mbone.experts (nom, prenom, url_photo, cout)
 VALUES
     ('Boué','Pierre','https://media.licdn.com/dms/image/D4D35AQE9MGKIaMPrIg/profile-framedphoto-shrink_100_100/0/1674238052184?e=1682344800&v=beta&t=pRmbDeZicqtGLw5BRxF4Z6b_o8KXJo_dO1XlXWy0KnQ',50),
     ('Peysson','Ludovic','https://media.licdn.com/dms/image/D4E35AQG-9ClIJbrrnw/profile-framedphoto-shrink_200_200/0/1667470158521?e=1682344800&v=beta&t=DGUCcExL3XUvV2VjrpJh4U6me7xzcvdDdLhBSdlQDi4', 200),
-    ('Chvrier','Stéphane','https://media.licdn.com/dms/image/C4E03AQFncqRVB29Xmw/profile-displayphoto-shrink_200_200/0/1633035776071?e=1687392000&v=beta&t=tJ_I4VApCcc4ypg0arn5zekqsIYhaQu5Gk3ju0vwZas',500);
+    ('Chevrier','Stéphane','https://media.licdn.com/dms/image/C4E03AQFncqRVB29Xmw/profile-displayphoto-shrink_200_200/0/1633035776071?e=1687392000&v=beta&t=tJ_I4VApCcc4ypg0arn5zekqsIYhaQu5Gk3ju0vwZas',500);
 UNLOCK TABLES;
 
 # Remplissage Table expertises

@@ -2,8 +2,9 @@ package com.example.mbonespring.models.interfaces;
 
 import com.example.mbonespring.models.entities.ClientsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
-public interface ClientsRepository extends JpaRepository<ClientsEntity, Integer>, JpaSpecificationExecutor<ClientsEntity>  {
+@Repository
+public interface ClientsRepository extends JpaRepository<ClientsEntity, Integer>{
     ClientsEntity findByUserId(int id);
 }

@@ -51,7 +51,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/test").permitAll()
-                .requestMatchers("/clients/solde").permitAll()
+//                .requestMatchers("/clients/solde").permitAll()
                 .anyRequest().authenticated();
 
         final AuthenticationManagerBuilder authenticationManagerBuilder =
