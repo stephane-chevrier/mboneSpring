@@ -1,7 +1,7 @@
 # Table clientsExperts
-DROP TABLE IF EXISTS mbone.clientsExperts;
-CREATE TABLE mbone.clientsExperts (
-                                      id        int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+ DROP TABLE IF EXISTS mbone.clientsExperts;
+ CREATE TABLE mbone.clientsExperts (
+                                     id        int PRIMARY KEY NOT NULL AUTO_INCREMENT,
                                       status    int,
                                       expert_id int,
                                       FOREIGN KEY (expert_id) REFERENCES experts(id) ON DELETE CASCADE,

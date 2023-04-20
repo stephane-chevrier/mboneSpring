@@ -106,11 +106,11 @@ public class AuthentificationAPI {
     {
         try {
             ClientsEntity userDTO = clientsRepository.findByUserId(userid);
-            int solde = (userDTO==null)?-1:userDTO.getSolde();
+            int solde = (userDTO==null)?0:userDTO.getSolde();
             return solde;
 
         } catch (BadCredentialsException ex) {
-            return -1;
+            return 0;
         }
 
     }
