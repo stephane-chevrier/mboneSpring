@@ -75,7 +75,9 @@ public class AuthentificationAPI {
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
                     .signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).compact();
-            UserDTO userDTO = new UserDTO(user.getUsername(), token);
+            //ResponseEntity<Integer> response = soldeClients();
+            int credit = getSolde( user.getId().intValue());
+            UserDTO userDTO = new UserDTO(user.getUsername(), token, credit);
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION,"Bearer " + token)
                     .body(userDTO);
@@ -100,7 +102,18 @@ public class AuthentificationAPI {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+    private  int getSolde( int userid )
+    {
+        try {
+            ClientsEntity userDTO = clientsRepository.findByUserId(userid);
+            int solde = (userDTO==null)?-1:userDTO.getSolde();
+            return solde;
 
+        } catch (BadCredentialsException ex) {
+            return -1;
+        }
+
+    }
     /**
      * Methode de recuperation du solde d'un client
      * @return ResponseEntity<Integer>
