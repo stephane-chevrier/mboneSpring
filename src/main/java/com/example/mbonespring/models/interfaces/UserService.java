@@ -1,4 +1,4 @@
-package com.example.mbonespring.interfaces;
+package com.example.mbonespring.models.interfaces;
 
 import com.example.mbonespring.models.entities.UserEntity;
 import com.example.mbonespring.models.entities.UserRoleEntity;
