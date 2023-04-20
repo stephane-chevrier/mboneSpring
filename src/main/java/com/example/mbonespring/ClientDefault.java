@@ -40,5 +40,9 @@ public class ClientDefault {
             }
         }
     }
+    @PostConstruct
+    public void populateDatabase()
+    {
 
+    }
 }
